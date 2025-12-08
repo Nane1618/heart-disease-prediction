@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Heart Disease Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Bar */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .navbar-custom ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 40px;
+            margin-bottom: 0;
+        }
+
+        .navbar-custom ul li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px 25px;
+            color: white;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-custom ul li:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-custom ul li a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.2s both;
+            opacity: 0.9;
+        }
+
+        /* Services Grid */
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            animation: fadeIn 1s ease 0.4s both;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .service-card h3 {
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .service-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .service-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+            color: white;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 40px auto;
+            max-width: 1000px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+            color: white;
+        }
+
+        /* Process Section */
+        .process-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 40px auto;
+            max-width: 1200px;
+        }
+
+        .process-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .process-step {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .process-step h4 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 3px solid rgba(255, 255, 255, 0.2);
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                padding: 40px 20px;
+                margin: 20px;
+            }
+
+            .process-section {
+                padding: 40px 20px;
+            }
+
+            .navbar-custom ul {
+                justify-content: center;
+                margin-right: 0;
+                flex-wrap: wrap;
+            }
+
+            .navbar-custom ul li {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div class="navbar-custom">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Service</a></li>
+            <li><a href="/hospitals">Hospitals</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Our Services</h1>
+        <p class="subtitle">Comprehensive Heart Health Assessment & Prediction Services</p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="services-container">
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🫀</div>
+                <h3>Heart Disease Risk Assessment</h3>
+                <p>Get accurate predictions based on your health data using our advanced ML algorithms. Our system
+                    analyzes 13 key health parameters to assess your cardiovascular risk.</p>
+                <a href="/prediction" class="service-btn">Get Assessment →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Personalized Health Reports</h3>
+                <p>Receive detailed reports with insights and recommendations tailored to your health profile.
+                    Understand your results with clear visualizations and explanations.</p>
+                <a href="/prediction" class="service-btn">Learn More →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">👨‍⚕️</div>
+                <h3>Expert Consultation</h3>
+                <p>Connect with healthcare professionals for consultation based on your assessment results. Get guidance
+                    on next steps and preventive measures.</p>
+                <a href="/hospitals" class="service-btn">Find Experts →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🔬</div>
+                <h3>ML-Powered Analysis</h3>
+                <p>Our prediction engine uses 6 different machine learning models tested and optimized for accuracy. KNN
+                    model deployed with 83.61% accuracy rate.</p>
+                <a href="/about" class="service-btn">View Details →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🏥</div>
+                <h3>Hospital Recommendations</h3>
+                <p>Find nearby hospitals and cardiac care centers for follow-up treatment. We provide trusted hospital
+                    recommendations in your area.</p>
+                <a href="/hospitals" class="service-btn">Find Hospitals →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🔒</div>
+                <h3>Secure & Private</h3>
+                <p>Your health data is processed securely and never stored without your consent. We prioritize your
+                    privacy and data protection at every step.</p>
+                <a href="/prediction" class="service-btn">Start Secure →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Process Section -->
+    <div class="container">
+        <div class="process-section">
+            <h2>How It Works</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>Enter Your Data</h4>
+                    <p>Fill in your health parameters like age, blood pressure, cholesterol, etc.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>ML Analysis</h4>
+                    <p>Our algorithm processes your data using trained machine learning models.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>Get Results</h4>
+                    <p>Receive instant prediction results about your heart disease risk.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>Take Action</h4>
+                    <p>Consult with healthcare professionals based on your assessment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="container">
+        <div class="cta-section">
+            <h2>Ready to Check Your Heart Health?</h2>
+            <p>Take the first step towards a healthier heart. Get your free prediction now!</p>
+            <a href="/prediction" class="cta-button">Start Your Assessment →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Heart Disease Prediction. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

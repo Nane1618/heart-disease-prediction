@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Heart Disease Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Bar */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .navbar-custom ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 40px;
+            margin-bottom: 0;
+        }
+
+        .navbar-custom ul li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px 25px;
+            color: white;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-custom ul li:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-custom ul li a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .page-header {
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.2s both;
+            opacity: 0.9;
+        }
+
+        /* Content Section */
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 40px auto;
+            max-width: 1200px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease 0.4s both;
+        }
+
+        .content-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .content-section p {
+            color: #444;
+            font-size: 1.05rem;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .about-image {
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .about-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #f5576c;
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 3px solid rgba(255, 255, 255, 0.2);
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .content-section {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .navbar-custom ul {
+                justify-content: center;
+                margin-right: 0;
+                flex-wrap: wrap;
+            }
+
+            .navbar-custom ul li {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div class="navbar-custom">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Service</a></li>
+            <li><a href="/hospitals">Hospitals</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>About Us</h1>
+        <p class="subtitle">Pioneering ML-Powered Heart Disease Prediction</p>
+    </div>
+
+    <!-- Content Section -->
+    <div class="container">
+        <div class="content-section">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h2>🫀 Our Mission</h2>
+                    <p>
+                        We are committed to providing accurate and reliable heart disease prediction tools to help
+                        individuals monitor their heart health. Heart disease is one of the leading causes of death
+                        worldwide, and our mission is to change that through early detection.
+                    </p>
+                    <p>
+                        Heart plays an important role in living organisms. Prediction of cardiovascular disease is a
+                        critical challenge in the area of clinical data analysis. This project presents a predictive
+                        model designed to assess the likelihood of heart disease based on a range of clinical and
+                        lifestyle variables, such as age, blood pressure, cholesterol levels, and smoking habits.
+                    </p>
+                    <p>
+                        Utilizing machine learning algorithms, our model analyzes patterns within the data to
+                        accurately forecast potential heart-related conditions. Multiple techniques were explored
+                        to optimize predictive performance, with evaluation metrics like accuracy, recall, and
+                        precision guiding the selection of the most effective model.
+                    </p>
+                </div>
+                <div class="col-lg-5 text-center">
+                    <img src="{{ url_for('static', filename='a1.jpeg') }}" class="about-image" alt="Heart Health">
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-item">
+                    <h3>86.89%</h3>
+                    <p>Best Model Accuracy</p>
+                </div>
+                <div class="stat-item">
+                    <h3>6</h3>
+                    <p>ML Models Tested</p>
+                </div>
+                <div class="stat-item">
+                    <h3>13</h3>
+                    <p>Health Parameters</p>
+                </div>
+                <div class="stat-item">
+                    <h3>303</h3>
+                    <p>Training Samples</p>
+                </div>
+            </div>
+
+            <h2 class="mt-5">📊 Model Performance</h2>
+            <p>
+                The performance of techniques is gauged based on accuracy, sensitivity, specificity, and precision.
+                Our testing revealed the following results:
+            </p>
+
+            <!-- Features Grid -->
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h4>SVC & XGBoost</h4>
+                    <p>86.89% Accuracy - Best performing models</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h4>Logistic Regression</h4>
+                    <p>85.25% Accuracy - Strong performer</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h4>KNN (Deployed)</h4>
+                    <p>83.61% Accuracy - Currently in use</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h4>Advanced ML</h4>
+                    <p>Continuously improving with new data</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Heart Disease Prediction. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

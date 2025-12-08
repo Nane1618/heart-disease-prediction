@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribers - Heart Disease Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Bar */
+        .sample {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .sample ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 40px;
+            margin-bottom: 0;
+        }
+
+        .sample ul li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px 25px;
+            color: white;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sample ul li:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .sample ul li a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 40px auto;
+            max-width: 1000px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .content-section h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .content-section .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .stats-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .stats-banner h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .stats-banner p {
+            margin: 5px 0 0 0;
+            font-size: 1.1rem;
+        }
+
+        /* Table Styles */
+        .subscribers-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .subscribers-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .subscribers-table th {
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .subscribers-table th:first-child {
+            border-radius: 10px 0 0 0;
+        }
+
+        .subscribers-table th:last-child {
+            border-radius: 0 10px 0 0;
+        }
+
+        .subscribers-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .subscribers-table tbody tr:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+        }
+
+        .subscribers-table tbody tr:last-child td:first-child {
+            border-radius: 0 0 0 10px;
+        }
+
+        .subscribers-table tbody tr:last-child td:last-child {
+            border-radius: 0 0 10px 0;
+        }
+
+        .no-subscribers {
+            text-align: center;
+            padding: 50px 20px;
+            color: #666;
+        }
+
+        .no-subscribers .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 3px solid rgba(255, 255, 255, 0.2);
+            margin-top: auto;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .sample ul {
+                justify-content: center;
+                margin-right: 0;
+            }
+
+            .subscribers-table th,
+            .subscribers-table td {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div class="sample">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Service</a></li>
+            <li><a href="/hospitals">Hospitals</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-section">
+            <h1>📧 Newsletter Subscribers</h1>
+            <p class="subtitle">Admin view of all subscribed users</p>
+
+            <div class="stats-banner">
+                <h2>{{ subscribers|length }}</h2>
+                <p>Total Subscribers</p>
+            </div>
+
+            {% if subscribers %}
+            <table class="subscribers-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Email Address</th>
+                        <th>Subscribed On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subscriber in subscribers %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ subscriber.email }}</td>
+                        <td>{{ subscriber.subscribed_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="no-subscribers">
+                <div class="icon">📭</div>
+                <h3>No Subscribers Yet</h3>
+                <p>When users subscribe to your newsletter, they will appear here.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Heart Disease Prediction. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

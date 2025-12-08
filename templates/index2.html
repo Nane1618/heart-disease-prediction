@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitals - Heart Disease Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Bar */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .navbar-custom ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 40px;
+            margin-bottom: 0;
+        }
+
+        .navbar-custom ul li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 10px 25px;
+            color: white;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-custom ul li:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-custom ul li a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.2s both;
+            opacity: 0.9;
+        }
+
+        /* Hospitals Container */
+        .hospitals-container {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        /* Hospital Cards Grid */
+        .hospitals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            animation: fadeIn 1s ease 0.4s both;
+        }
+
+        .hospital-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 35px;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hospital-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .hospital-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .hospital-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .hospital-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-right: 15px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .hospital-name {
+            flex: 1;
+        }
+
+        .hospital-name h3 {
+            color: #333;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .hospital-name span {
+            color: #f5576c;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .hospital-details {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .hospital-details p {
+            margin-bottom: 8px;
+        }
+
+        .hospital-details i {
+            color: #667eea;
+            margin-right: 8px;
+        }
+
+        .hospital-badge {
+            display: inline-block;
+            padding: 6px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .hospital-contact {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .call-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .call-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+            color: white;
+        }
+
+        .direction-btn {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        .direction-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* City Filter */
+        .city-filter {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .city-filter span {
+            color: white;
+            font-weight: 600;
+        }
+
+        .city-badge {
+            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .city-badge:hover,
+        .city-badge.active {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        /* Info Section */
+        .info-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 40px auto;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .info-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .info-section p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .emergency-number {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+        }
+
+        .emergency-number span {
+            margin-left: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 3px solid rgba(255, 255, 255, 0.2);
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .hospitals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hospital-contact {
+                flex-direction: column;
+            }
+
+            .navbar-custom ul {
+                justify-content: center;
+                margin-right: 0;
+                flex-wrap: wrap;
+            }
+
+            .navbar-custom ul li {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+
+            .info-section {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div class="navbar-custom">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Service</a></li>
+            <li><a href="/hospitals">Hospitals</a></li>
+        </ul>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>🏥 Recommended Hospitals</h1>
+        <p class="subtitle">Find Trusted Cardiac Care Centers Near You</p>
+    </div>
+
+    <!-- City Filter -->
+    <div class="hospitals-container">
+        <div class="city-filter">
+            <span>📍 Filter by City:</span>
+            <div class="city-badge active">All</div>
+            <div class="city-badge">Hyderabad</div>
+            <div class="city-badge">Bangalore</div>
+            <div class="city-badge">Chennai</div>
+        </div>
+
+        <!-- Hospital Cards -->
+        <div class="hospitals-grid">
+            <!-- Metro Heart Care Center -->
+            <div class="hospital-card">
+                <div class="hospital-header">
+                    <div class="hospital-icon">🏥</div>
+                    <div class="hospital-name">
+                        <h3>Metro Heart Care Center</h3>
+                        <span>📍 Hyderabad</span>
+                    </div>
+                </div>
+                <div class="hospital-details">
+                    <p>📌 Central Avenue, Sector 12</p>
+                    <p>🏙️ Hyderabad, Telangana 500001</p>
+                    <p>📞 +91 40 XXXXXXXX</p>
+                </div>
+                <div>
+                    <span class="hospital-badge">🫀 Cardiology</span>
+                    <span class="hospital-badge">⭐ Top Rated</span>
+                    <span class="hospital-badge">🏆 Accredited</span>
+                </div>
+                <div class="hospital-contact">
+                    <a href="#" class="contact-btn call-btn">📞 Call Now</a>
+                    <a href="#" class="contact-btn direction-btn">📍 Directions</a>
+                </div>
+            </div>
+
+            <!-- City Cardiac Hospital -->
+            <div class="hospital-card">
+                <div class="hospital-header">
+                    <div class="hospital-icon">🏥</div>
+                    <div class="hospital-name">
+                        <h3>City Cardiac Hospital</h3>
+                        <span>📍 Hyderabad</span>
+                    </div>
+                </div>
+                <div class="hospital-details">
+                    <p>📌 Healthcare Boulevard, Zone 5</p>
+                    <p>🏙️ Hyderabad, Telangana 500002</p>
+                    <p>📞 +91 40 XXXXXXXX</p>
+                </div>
+                <div>
+                    <span class="hospital-badge">🫀 Cardiology</span>
+                    <span class="hospital-badge">🔬 Advanced ICU</span>
+                    <span class="hospital-badge">🏆 Certified</span>
+                </div>
+                <div class="hospital-contact">
+                    <a href="#" class="contact-btn call-btn">📞 Call Now</a>
+                    <a href="#" class="contact-btn direction-btn">📍 Directions</a>
+                </div>
+            </div>
+
+            <!-- Premier Health Hospital -->
+            <div class="hospital-card">
+                <div class="hospital-header">
+                    <div class="hospital-icon">🏥</div>
+                    <div class="hospital-name">
+                        <h3>Premier Health Hospital</h3>
+                        <span>📍 Hyderabad</span>
+                    </div>
+                </div>
+                <div class="hospital-details">
+                    <p>📌 Medical District, Main Road</p>
+                    <p>🏙️ Hyderabad, Telangana 500003</p>
+                    <p>📞 +91 40 XXXXXXXX</p>
+                </div>
+                <div>
+                    <span class="hospital-badge">🫀 Cardiology</span>
+                    <span class="hospital-badge">💉 Cardiac Surgery</span>
+                    <span class="hospital-badge">⭐ Trusted</span>
+                </div>
+                <div class="hospital-contact">
+                    <a href="#" class="contact-btn call-btn">📞 Call Now</a>
+                    <a href="#" class="contact-btn direction-btn">📍 Directions</a>
+                </div>
+            </div>
+
+            <!-- Sunrise Medical Center -->
+            <div class="hospital-card">
+                <div class="hospital-header">
+                    <div class="hospital-icon">🏥</div>
+                    <div class="hospital-name">
+                        <h3>Sunrise Medical Center</h3>
+                        <span>📍 Hyderabad</span>
+                    </div>
+                </div>
+                <div class="hospital-details">
+                    <p>📌 Tech Park Road, Innovation Hub</p>
+                    <p>🏙️ Hyderabad, Telangana 500004</p>
+                    <p>📞 +91 40 XXXXXXXX</p>
+                </div>
+                <div>
+                    <span class="hospital-badge">🫀 Cardiology</span>
+                    <span class="hospital-badge">🔬 Research Center</span>
+                    <span class="hospital-badge">🏆 Modern</span>
+                </div>
+                <div class="hospital-contact">
+                    <a href="#" class="contact-btn call-btn">📞 Call Now</a>
+                    <a href="#" class="contact-btn direction-btn">📍 Directions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Info Section -->
+    <div class="container">
+        <div class="info-section">
+            <h2>🚨 Emergency Information</h2>
+            <p>
+                If you're experiencing symptoms of a heart attack such as chest pain, shortness of breath,
+                or discomfort in the arms, back, neck, or jaw, please seek immediate medical attention.
+            </p>
+            <div class="emergency-number">
+                🆘 <span>Emergency: 108 / 112</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Heart Disease Prediction. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
