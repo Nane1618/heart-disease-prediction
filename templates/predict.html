@@ -403,14 +403,7 @@
                 Email: wethic484@gmail.com</p>
         </div>
 
-        <div class="footer-section subscribe">
-            <h3>Subscribe</h3>
-            <form id="subscribeForm">
-                <input type="email" id="subscribeEmail" placeholder="Your email" required>
-                <button type="submit">Subscribe</button>
-            </form>
-            <p id="subscribeMessage" style="margin-top: 10px; font-size: 0.9rem;"></p>
-        </div>
+
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -469,37 +462,7 @@
                 });
             });
 
-            // Subscribe form handling
-            $('#subscribeForm').on('submit', async function (e) {
-                e.preventDefault();
 
-                const email = $('#subscribeEmail').val();
-                const messageEl = $('#subscribeMessage');
-
-                try {
-                    const response = await fetch('/subscribe', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ email: email })
-                    });
-
-                    const data = await response.json();
-
-                    if (data.success) {
-                        messageEl.css('color', '#4CAF50');
-                        messageEl.text(data.message);
-                        $('#subscribeEmail').val('');
-                    } else {
-                        messageEl.css('color', '#f5576c');
-                        messageEl.text(data.message);
-                    }
-                } catch (error) {
-                    messageEl.css('color', '#f5576c');
-                    messageEl.text('An error occurred. Please try again.');
-                }
-            });
         });
     </script>
 </body>

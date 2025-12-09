@@ -74,57 +74,7 @@ def predict():
     # Return the prediction as a JSON response
     return jsonify({'prediction': int(prediction[0])})
 
-# Subscriber functionality
-SUBSCRIBERS_FILE = 'subscribers.json'
 
-def load_subscribers():
-    """Load subscribers from JSON file"""
-    if os.path.exists(SUBSCRIBERS_FILE):
-        with open(SUBSCRIBERS_FILE, 'r') as f:
-            return json.load(f)
-    return []
-
-def save_subscribers(subscribers):
-    """Save subscribers to JSON file"""
-    with open(SUBSCRIBERS_FILE, 'w') as f:
-        json.dump(subscribers, f, indent=4)
-
-@app.route('/subscribe', methods=['POST'])
-def subscribe():
-    """Handle newsletter subscription"""
-    data = request.get_json()
-    email = data.get('email', '').strip()
-    
-    if not email:
-        return jsonify({'success': False, 'message': 'Email is required'}), 400
-    
-    # Basic email validation
-    if '@' not in email or '.' not in email:
-        return jsonify({'success': False, 'message': 'Invalid email format'}), 400
-    
-    # Load existing subscribers
-    subscribers = load_subscribers()
-    
-    # Check if already subscribed
-    existing_emails = [s['email'] for s in subscribers]
-    if email in existing_emails:
-        return jsonify({'success': False, 'message': 'This email is already subscribed!'}), 400
-    
-    # Add new subscriber
-    new_subscriber = {
-        'email': email,
-        'subscribed_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    }
-    subscribers.append(new_subscriber)
-    save_subscribers(subscribers)
-    
-    return jsonify({'success': True, 'message': 'Successfully subscribed! Thank you.'})
-
-@app.route('/subscribers')
-def view_subscribers():
-    """View all subscribers (admin page)"""
-    subscribers = load_subscribers()
-    return render_template('subscribers.html', subscribers=subscribers)
 
 if __name__ == "__main__":
     app.run(debug=True)
